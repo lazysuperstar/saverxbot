@@ -6,7 +6,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from config import *
 from pyrogram.types import Message, InputMediaPhoto, InputMediaVideo
-from helpo.lazyprogress import progress_for_pyrogram
+
 # Initialize Instaloader
 insta = instaloader.Instaloader()
 
@@ -26,7 +26,6 @@ async def handle_incoming_message(client: Client, message: Message):
 
         # Inform user about processing
         progress_message = await message.reply("🔄 Detecting URL type and processing the download...")
-        start_time = time.time()
 
         # Extract shortcode from Instagram URL (assuming this is a function you implemented)
         post_shortcode = get_post_or_reel_shortcode_from_link(url)
@@ -36,18 +35,21 @@ async def handle_incoming_message(client: Client, message: Message):
             return  # Post shortcode not found, stop processing
         
         # Get an instance of Instaloader (assuming this function initializes it)
-        L = get_ready_to_work_insta_instance()        
-        post = instaloader.Post.from_shortcode(L.context, post_shortcode)
+        # L = get_ready_to_work_insta_instance()        
+        post = instaloader.Post.from_shortcode(insta.context, post_shortcode)
 
         # Caption handling (ensure the caption does not exceed Telegram's limit)
         bot_username = "@LazyDevDemo_BOT"
         caption_trail = "\n\n\n" + bot_username
+
+        await progress_message.edit("<i>⚙fetching caption...</i>")
 
         new_caption = post.caption
         while len(new_caption) + len(caption_trail) > 1024:
             new_caption = new_caption[:-1]  # Trim caption if it's too long
         new_caption = new_caption + caption_trail  # Add bot username at the end
          # Initialize media list
+        
         media_list = []
 
         # Handle sidecars (multiple media in a post)
@@ -67,32 +69,14 @@ async def handle_incoming_message(client: Client, message: Message):
                 media_list.append(media)
 
             # Send media group
-            # Send media group with progress
-            await client.send_media_group(
-                chat_id=message.chat.id, 
-                media=media_list,
-                progress=progress_for_pyrogram, 
-                progress_args=("Uploading media group \nPlease wait......", progress_message, start_time)
-            )
+            await client.send_media_group(message.chat.id, media_list)
 
         else:
             # Single media handling
             if post.is_video:
-                await client.send_video(
-                    chat_id=message.chat.id, 
-                    video=post.video_url, 
-                    caption=new_caption, 
-                    progress=progress_for_pyrogram, 
-                    progress_args=("Uploading video\nPlease wait......", progress_message, start_time)
-                )            
+                await client.send_video(message.chat.id, post.video_url, caption=new_caption)
             else:
-                await client.send_photo(
-                    chat_id=message.chat.id, 
-                    photo=post.url, 
-                    caption=new_caption, 
-                    progress=progress_for_pyrogram, 
-                    progress_args=("Uploading photo\nPlease wait......", progress_message, start_time)
-                )
+                await client.send_photo(message.chat.id, post.url, caption=new_caption)
 
     except Exception as e:
         # Handle any errors
