@@ -75,5 +75,5 @@ async def handle_tiktok_download(client: Client, message: Message):
         # except Exception as e:
         #     print(f"Error: {e}")
         
-    except Exception as e:
-        await message.reply(f"❌ An unexpected error occurred: {e}")
+    # except Exception as e:
+    #     await message.reply(f"❌ An unexpected error occurred: {e}")
