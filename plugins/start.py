@@ -25,6 +25,8 @@ async def start(client, message):
         InlineKeyboardButton('• ᴜᴘᴅᴀᴛᴇꜱ •', url='https://t.me/lazydeveloper'),
         InlineKeyboardButton('• ꜱᴜᴘᴘᴏʀᴛ •', url='https://t.me/lazydeveloper')
         ],[
+        InlineKeyboardButton("👑 • ᴏᴡɴᴇʀ • 💎", callback_data='own')
+        ],[
         InlineKeyboardButton("❤ • ᴅᴇᴠ • 🍟", callback_data='dev')
         ],[
         InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about'),
@@ -47,6 +49,8 @@ async def cb_handler(client, query: CallbackQuery):
                 [
                 InlineKeyboardButton('• ᴜᴘᴅᴀᴛᴇꜱ •', url='https://t.me/lazydeveloper'),
                 InlineKeyboardButton('• ꜱᴜᴘᴘᴏʀᴛ •', url='https://t.me/lazydeveloper')
+                ],[
+                InlineKeyboardButton("👑 • ᴏᴡɴᴇʀ • 💎", callback_data='own')
                 ],[
                 InlineKeyboardButton("❤ • ᴅᴇᴠ • 🍟", callback_data='dev')
                 ],[
@@ -79,7 +83,6 @@ async def cb_handler(client, query: CallbackQuery):
                 InlineKeyboardButton("◀️ ʙᴀᴄᴋ •", callback_data = "start")
                ]]
             ),
-            disable_web_page_preview=True,
             parse_mode=enums.ParseMode.HTML
         )
     elif data == "dev":
