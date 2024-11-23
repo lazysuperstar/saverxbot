@@ -42,8 +42,8 @@ async def handle_incoming_message(client: Client, message: Message):
         post = instaloader.Post.from_shortcode(L.context, post_shortcode)
 
         # Caption handling (ensure the caption does not exceed Telegram's limit)
-        bot_username = client.username if client.username else "@lazydeveloeprr"
-        caption_trail = "\n\n\n" + f"❤ ᴡɪᴛʜ ʟᴏᴠᴇ @{bot_username}"
+        bot_username = client.username if client.username else TEL_USERNAME
+        caption_trail = "\n\n\n" + f"ᴡɪᴛʜ ❤ @{bot_username}"
 
         new_caption = post.caption
         while len(new_caption) + len(caption_trail) > 1024:
@@ -83,7 +83,7 @@ async def handle_incoming_message(client: Client, message: Message):
 
         await progress_message3.delete()
         lazydeveloper = await client.send_message(chat_id=message.chat.id, text=f"❤ ꜰᴇᴇʟ ꜰʀᴇᴇ ᴛᴏ sʜᴀʀᴇ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ꜰʀɪᴇɴᴅ ᴄɪʀᴄʟᴇ...")
-        await asyncio.sleep(300)
+        await asyncio.sleep(100)
         await lazydeveloper.delete()
     except Exception as e:
         # Handle any errors
