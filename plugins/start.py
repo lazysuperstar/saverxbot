@@ -45,7 +45,7 @@ async def cb_handler(client, query: CallbackQuery):
 
         await query.message.edit_text(
             text=Script.WELCOME_TEXT.format(query.from_user.mention),
-            button=InlineKeyboardMarkup([
+            reply_markup=InlineKeyboardMarkup([
                 [
                 InlineKeyboardButton('• ᴜᴘᴅᴀᴛᴇꜱ •', url='https://t.me/lazydeveloper'),
                 InlineKeyboardButton('• ꜱᴜᴘᴘᴏʀᴛ •', url='https://t.me/lazydeveloper')
