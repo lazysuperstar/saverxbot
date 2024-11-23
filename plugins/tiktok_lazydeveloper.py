@@ -31,19 +31,38 @@ async def handle_tiktok_download(client: Client, message: Message):
         
         bot_username = client.username if client.username else TEL_USERNAME
         caption_lazy = f".\nᴡɪᴛʜ ❤ @{bot_username}\n."
-        path = f"{message.chat.id}_{time.time()}_downloadedby_@{client.username}.mp4" 
 
         if res:
             try:
+                path = f"{message.chat.id}_{time.time()}_downloadedby_@{client.username}.mp4"
                 print(res)
+                
+                # Attempt to download using library's method
                 video_url = res[0].download(path)
-                print(f"Video downloaded :  {video_url}")
-                # input_file = types.InputFile(f"{message.message_id}.mp4")
-                # file_id = client.upload.saveFilePart(file_path)
+                if video_url:
+                    print(f"Video downloaded successfully: {video_url}")
+                else:
+                    # Fallback: Attempt manual download
+                    video_url = res[0].video_url  # Adjust based on actual response
+                    print(f"Manual Download - Video URL: {video_url}")
+                    
+                    # Download video content
+                    response = requests.get(video_url, stream=True)
+                    if response.status_code == 200:
+                        video_bytes = BytesIO(response.content)
+                        video_bytes.name = path  # Set the file name for Pyrogram
+                        await client.send_video(message.chat.id, video_bytes, caption=caption_lazy)
+                    else:
+                        print(f"Failed to download video, status code: {response.status_code}")
+                    return  # Exit function after fallback
 
-                await client.send_video(message.chat.id, video_url, caption=caption_lazy)
-            except Exception as lazyerror:
-                print(lazyerror)
+                # Send video using path (if library download works)
+                print(f"trying alterate method")
+                await client.send_video(message.chat.id, path, caption=caption_lazy)
+            
+            except Exception as e:
+                print(f"Error occurred: {e}")
+
             # xlaxyx = await client.send_document(
             #     chat_id=message.chat.id,
             #     document=input_file,
