@@ -13,3 +13,4 @@ instaloader
 shazamio
 spotipy
 TikTokApi
+tiktok_downloader
