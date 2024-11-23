@@ -54,17 +54,19 @@ async def lazy_force_sub(client: Client, message: Message):
         pass
     # setting up multiple message for force sub msg LazyDeveloperr
     lazydeveloperquotes = [
-        "🌟{} \n *Great things never came from comfort zones.* Step in and join us for exciting updates!",
-        "🚀{} \n *Stay connected, stay inspired.* Hit the join button to explore more!",
-        "✨{} \n *Dream big, act bigger.* Stay with us for amazing content!",
-        "💡{} \n *Knowledge is power.* Join us now and never miss an update!",
-        "🔥{} \n *Your journey to greatness begins here.* Tap the button to join now!",
-        "🎉{} \n *Be part of something amazing.* Join our channel and experience the magic!",
-        "📚{} \n *Stay informed, stay ahead.* Join now for the latest updates!",
-        "💪{} \n *Together, we grow stronger.* Don't miss out—join us today!",
-        "🌈{} \n *Unlock a world of possibilities.* Tap below to stay connected!",
-        "🌟{} \n *Your support fuels our journey.* Join the channel and be part of the family!"
-    ]
+    "<blockquote>🌟{} \n <b>ɢʀᴇᴀᴛ ᴛʜɪɴɢs ɴᴇᴠᴇʀ ᴄᴀᴍᴇ ꜰʀᴏᴍ ᴄᴏᴍꜰᴏʀᴛ ᴢᴏɴᴇs.</b>\n sᴛᴇᴘ ɪɴ ᴀɴᴅ ᴊᴏɪɴ ᴜs ꜰᴏʀ ᴇxᴄɪᴛɪɴɢ ᴜᴘᴅᴀᴛᴇs!</blockquote>",
+    "<blockquote>🚀{} \n <b>sᴛᴀʏ ᴄᴏɴɴᴇᴄᴛᴇᴅ, sᴛᴀʏ ɪɴsᴘɪʀᴇᴅ.</b>\n ʜɪᴛ ᴛʜᴇ ᴊᴏɪɴ bᴜᴛᴛᴏɴ ᴛᴏ ᴇxᴘʟᴏʀᴇ ᴍᴏʀᴇ!</blockquote>",
+    "<blockquote>✨{} \n <b>ᴅʀᴇᴀᴍ bɪɢ, ᴀᴄᴛ bɪɢɢᴇʀ.</b>\n sᴛᴀʏ wɪᴛʜ ᴜs ꜰᴏʀ ᴀᴍᴀᴢɪɴɢ ᴄᴏɴᴛᴇɴᴛ!</blockquote>",
+    "<blockquote>💡{} \n <b>ᴋɴᴏᴡʟᴇᴅɢᴇ ɪs ᴘᴏᴡᴇʀ.</b>\n jᴏɪɴ ᴜs nᴏᴡ ᴀɴᴅ nᴇᴠᴇʀ mɪss ᴀɴ ᴜᴘᴅᴀᴛᴇ!</blockquote>",
+    "<blockquote>🔥{} \n <b>ʏᴏᴜʀ jᴏᴜʀɴᴇʏ ᴛᴏ ɢʀᴇᴀᴛɴᴇss ʙɪɢɪɴs ʜᴇʀᴇ.</b> ᴛᴀᴘ ᴛʜᴇ bᴜᴛᴛᴏɴ ᴛᴏ jᴏɪɴ nᴏᴡ!</blockquote>",
+    "<blockquote>🎉{} \n <b>ʙᴇ ᴘᴀʀᴛ ᴏꜰ sᴏᴍᴇᴛʜɪɴɢ ᴀᴍᴀᴢɪɴɢ.</b>\n jᴏɪɴ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ᴇxᴘᴇʀɪᴇɴᴄᴇ ᴛʜᴇ ᴍᴀɢɪᴄ!</blockquote>",
+    "<blockquote>📚{} \n <b>sᴛᴀʏ ɪɴғᴏʀᴍᴇᴅ, sᴛᴀʏ ᴀʜᴇᴀᴅ.</b>\n jᴏɪɴ nᴏᴡ ꜰᴏʀ ᴛʜᴇ ʟᴀᴛᴇsᴛ ᴜᴘᴅᴀᴛᴇs!</blockquote>",
+    "<blockquote>💪{} \n <b>ᴛᴏɢᴇᴛʜᴇʀ, wᴇ ɢʀᴏᴡ sᴛʀᴏɴɢᴇʀ.</b>\n ᴅᴏɴ'ᴛ mɪss ᴏᴜᴛ—jᴏɪɴ ᴜs ᴛᴏᴅᴀʏ!</blockquote>",
+    "<blockquote>🌈{} \n <b>ᴜɴʟᴏᴄᴋ ᴀ ᴡᴏʀʟᴅ ᴏғ ᴘᴏssɪʙɪʟɪᴛɪᴇs.</b>\n ᴛᴀᴘ bᴇʟᴏᴡ ᴛᴏ sᴛᴀʏ ᴄᴏɴɴᴇᴄᴛᴇᴅ!</blockquote>",
+    "<blockquote>🌟{} \n <b>ʏᴏᴜʀ sᴜᴘᴘᴏʀᴛ ꜰᴜᴇʟs ᴏᴜʀ jᴏᴜʀɴᴇʏ.</b>\n jᴏɪɴ ᴛʜᴇ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ bᴇ ᴘᴀʀᴛ ᴏꜰ ᴛʜᴇ ꜰᴀᴍɪʟʏ!</blockquote>"
+]
+
+
 
     # Randomly select a quote
     text = choice(lazydeveloperquotes)
