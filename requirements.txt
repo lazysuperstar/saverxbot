@@ -3,7 +3,7 @@ Pillow
 humanize
 hachoir
 motor
-pyrogram==2.0.106
+pyrofork==2.3.45
 TgCrypto
 dnspython
 aiohttp 

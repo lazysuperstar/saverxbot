@@ -34,6 +34,8 @@ FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", ""))
 FORCE_SUB_CHANNEL2 = int(os.environ.get("FORCE_SUB_CHANNEL2", ""))
 FORCE_SUB_CHANNEL3 = int(os.environ.get("FORCE_SUB_CHANNEL3", ""))
 
+TEL_USERNAME = os.environ.get("TEL_USERNAME", "yash")
+TEL_NAME = os.environ.get("TEL_NAME", "👑Yash Goyal👑")
 
 LOG_FILE_NAME = "lazyfilelogs.txt"
 
