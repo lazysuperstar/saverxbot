@@ -43,7 +43,7 @@ async def handle_incoming_message(client: Client, message: Message):
 
         # Caption handling (ensure the caption does not exceed Telegram's limit)
         bot_username = client.username if client.username else "@lazydeveloeprr"
-        caption_trail = "\n\n\n" + bot_username
+        caption_trail = "\n\n\n" + f"❤ ᴡɪᴛʜ ʟᴏᴠᴇ @{bot_username}"
 
         new_caption = post.caption
         while len(new_caption) + len(caption_trail) > 1024:
@@ -51,7 +51,7 @@ async def handle_incoming_message(client: Client, message: Message):
         new_caption = new_caption + caption_trail  # Add bot username at the end
          # Initialize media list
         
-        progress_message3 = progress_message2.edit("<i>⚡ ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ꜰɪʟᴇ ᴛᴏ ᴜᴘʟᴏᴀᴅ ᴏɴ ᴛᴇʟᴇɢʀᴀᴍ...</i>")
+        progress_message3 = await progress_message2.edit("<i>⚡ ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ꜰɪʟᴇ ᴛᴏ ᴜᴘʟᴏᴀᴅ ᴏɴ ᴛᴇʟᴇɢʀᴀᴍ...</i>")
         await asyncio.sleep(1)
         media_list = []
 
@@ -82,7 +82,7 @@ async def handle_incoming_message(client: Client, message: Message):
                 await client.send_photo(message.chat.id, post.url, caption=new_caption)
 
         await progress_message3.delete()
-        lazydeveloper = await client.send_message(f"❤ ꜰᴇᴇʟ ꜰʀᴇᴇ ᴛᴏ sʜᴀʀᴇ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ꜰʀɪᴇɴᴅ ᴄɪʀᴄʟᴇ...")
+        lazydeveloper = await client.send_message(chat_id=message.chat.id, text=f"❤ ꜰᴇᴇʟ ꜰʀᴇᴇ ᴛᴏ sʜᴀʀᴇ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ꜰʀɪᴇɴᴅ ᴄɪʀᴄʟᴇ...")
         await asyncio.sleep(300)
         await lazydeveloper.delete()
     except Exception as e:
