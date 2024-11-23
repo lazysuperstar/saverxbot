@@ -46,9 +46,7 @@ async def download_instagram_media(url, user_id):
     except Exception as e:
         return None, f"Error occurred: {e}"
 
-
-# Telegram bot handler (Pyrogram version)
-@Client.on_message(filters.text)
+@Client.on_message(filters.private & filters.text & ~filters.command(['start','users','broadcast']))
 async def handle_incoming_message(client: Client, message: Message):
     try:
         # Extract the message text and user ID
@@ -66,20 +64,68 @@ async def handle_incoming_message(client: Client, message: Message):
         folder, result = await download_instagram_media(url, user_id)
 
         if folder:
-            # Send all files in the dynamic folder to the user
-            for file_name in os.listdir(folder):
+            # Loop through the downloaded files in the folder
+            media_sent = False
+            for file_name in sorted(os.listdir(folder)):
                 file_path = os.path.join(folder, file_name)
-                await client.send_document(message.chat.id, file_path)
+
+                # Upload files to Telegram if they are media files
+                if file_name.endswith((".jpg", ".png", ".mp4")):
+                    await client.send_document(chat_id=message.chat.id, document=file_path)
+                    media_sent = True
+
+            # Inform the user when all files have been sent
+            if media_sent:
+                await message.reply("✅ Reel has been downloaded and sent to you!")
+            else:
+                await message.reply("❌ Could not find valid media to send.")
 
             # Clean up dynamic folder after sending files
             for file_name in os.listdir(folder):
                 os.remove(os.path.join(folder, file_name))
             os.removedirs(folder)
 
-            await message.reply("✅ Download completed and sent!")
         else:
             # If no folder, return the error message
             await message.reply(result)
 
     except Exception as e:
         await message.reply(f"❌ An error occurred: {e}")
+
+
+# Telegram bot handler (Pyrogram version)
+# @Client.on_message(filters.text)
+# async def handle_incoming_message(client: Client, message: Message):
+#     try:
+#         # Extract the message text and user ID
+#         url = message.text.strip()
+#         user_id = message.from_user.id  # Get user ID dynamically
+
+#         if "instagram.com" not in url:
+#             await message.reply("❌ Please send a valid Instagram URL.")
+#             return
+
+#         # Inform user about processing
+#         await message.reply("🔄 Detecting URL type and processing the download...")
+
+#         # Process the Instagram URL
+#         folder, result = await download_instagram_media(url, user_id)
+
+#         if folder:
+#             # Send all files in the dynamic folder to the user
+#             for file_name in os.listdir(folder):
+#                 file_path = os.path.join(folder, file_name)
+#                 await client.send_document(message.chat.id, file_path)
+
+#             # Clean up dynamic folder after sending files
+#             for file_name in os.listdir(folder):
+#                 os.remove(os.path.join(folder, file_name))
+#             os.removedirs(folder)
+
+#             await message.reply("✅ Download completed and sent!")
+#         else:
+#             # If no folder, return the error message
+#             await message.reply(result)
+
+#     except Exception as e:
+#         await message.reply(f"❌ An error occurred: {e}")
