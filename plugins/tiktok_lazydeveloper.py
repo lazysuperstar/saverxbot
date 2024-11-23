@@ -1,5 +1,5 @@
-from pyrogram import Client, filters
-from pyrogram.types import Message, InputFile
+from pyrogram import Client, filters, types
+from pyrogram.types import Message
 from tiktok_downloader import snaptik
 from io import BytesIO
 import requests
@@ -46,7 +46,7 @@ async def handle_tiktok_download(client: Client, message: Message):
         video_bytes.name = f"{message.message_id}.mp4"  # Give it a name
         
         # Send the video and caption directly from memory
-        input_file = InputFile(video_bytes)
+        input_file = types.InputMediaDocument(media=video_bytes, caption=lazy_caption)
         await msg_del.delete()
         
         # If there is a caption, send it with the video
