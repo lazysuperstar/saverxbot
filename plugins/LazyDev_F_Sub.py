@@ -66,8 +66,6 @@ async def lazy_force_sub(client: Client, message: Message):
     "<blockquote>🌟{} \n <b>ʏᴏᴜʀ sᴜᴘᴘᴏʀᴛ ꜰᴜᴇʟs ᴏᴜʀ jᴏᴜʀɴᴇʏ.</b>\n jᴏɪɴ ᴛʜᴇ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ bᴇ ᴘᴀʀᴛ ᴏꜰ ᴛʜᴇ ꜰᴀᴍɪʟʏ!</blockquote>"
 ]
 
-
-
     # Randomly select a quote
     text = choice(lazydeveloperquotes)
 
@@ -75,5 +73,7 @@ async def lazy_force_sub(client: Client, message: Message):
         text=text.format(message.from_user.mention),
         reply_markup=InlineKeyboardMarkup(buttons),
         quote=True,
-        disable_web_page_preview=True
+        disable_web_page_preview=True,
+        parse_mode=enums.ParseMode.HTML
+
     )

@@ -52,7 +52,9 @@ async def cb_handler(client, query: CallbackQuery):
                 ],[
                 InlineKeyboardButton('• ᴀʙᴏᴜᴛ •', callback_data='about'),
                 InlineKeyboardButton('• ʜᴇʟᴘ •', callback_data='help')
-                ]])
+                ]]),
+                disable_web_page_preview=True,
+                parse_mode=enums.ParseMode.HTML
             )
     elif data == "help":
         await query.message.edit_text(
@@ -63,8 +65,11 @@ async def cb_handler(client, query: CallbackQuery):
                 InlineKeyboardButton("◀️ ʙᴀᴄᴋ •", callback_data = "start")
                ]
                ]
-            )
+            ),
+            disable_web_page_preview=True,
+            parse_mode=enums.ParseMode.HTML
         )
+    
     elif data == "about":
         await query.message.edit_text(
             text=Script.ABOUT_TXT.format(client.mention),
@@ -73,7 +78,9 @@ async def cb_handler(client, query: CallbackQuery):
                 InlineKeyboardButton("🔒 ᴄʟᴏꜱᴇ •", callback_data = "close"),
                 InlineKeyboardButton("◀️ ʙᴀᴄᴋ •", callback_data = "start")
                ]]
-            )
+            ),
+            disable_web_page_preview=True,
+            parse_mode=enums.ParseMode.HTML
         )
     elif data == "dev":
         await query.message.edit_text(
@@ -82,7 +89,9 @@ async def cb_handler(client, query: CallbackQuery):
                 InlineKeyboardButton("🔒 ᴄʟᴏꜱᴇ", callback_data = "close"),
                 InlineKeyboardButton("◀️ ʙᴀᴄᴋ", callback_data = "start")
                ]]
-            )
+            ),
+            disable_web_page_preview=True,
+            parse_mode=enums.ParseMode.HTML 
         )
     elif data == "own":
         await query.message.edit_text(
@@ -91,7 +100,9 @@ async def cb_handler(client, query: CallbackQuery):
                 InlineKeyboardButton("🔒 ᴄʟᴏꜱᴇ", callback_data = "close"),
                 InlineKeyboardButton("◀️ ʙᴀᴄᴋ", callback_data = "start")
                ]]
-            )
+            ),
+            disable_web_page_preview=True,
+            parse_mode=enums.ParseMode.HTML
         )
     elif data == "close":
         try:
