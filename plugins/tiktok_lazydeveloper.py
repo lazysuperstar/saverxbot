@@ -10,7 +10,7 @@ from tiktok_downloader import snaptik
 
 from config import TEL_USERNAME
 
-api = TikTokApi.get_instance()
+
 
 @Client.on_message(filters.private & filters.text & ~filters.command(['start', 'help']))
 async def handle_tiktok_download(client: Client, message: Message):
