@@ -11,6 +11,7 @@ pyromod==1.5
 telethon
 instaloader
 tiktok_downloader
+tiktok_scraper 
 shazamio
 spotipy
 TikTokApi
