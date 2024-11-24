@@ -10,7 +10,7 @@ aiohttp
 pyromod==1.5
 telethon
 instaloader
+tiktok_downloader
 shazamio
 spotipy
 TikTokApi
-tiktok_downloader
