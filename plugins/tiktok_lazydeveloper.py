@@ -97,24 +97,25 @@ async def handle_tiktok_download(client: Client, message: Message):
 
         # TEMP_DOWNLOAD_FOLDER = f"{message.from_user.id}_{time.time()}_ok.mp4"
         if any(domain in message_text for domain in ["https://www.youtube.com/", "https://youtu.be/", "https://twitter.com/", "https://x.com/", "https://www.tiktok.com/"]):
-            params = message_text.split(" ")
-            url = params[1]  # Extract the URL after the command
-            format = "video" if len(params) < 3 or params[2].lower() != "audio" else "audio"
+            # params = message_text.split(" ")
+            # url = params[1]  # Extract the URL after the command
+            url = message_text  # Extract the URL after the command
+            format = "video" #if len(params) < 3 or params[2].lower() != "audio" else "audio"
             destination_folder = TEMP_DOWNLOAD_FOLDER  # Use the temporary download folder
-
+            print(f"continue to download")
             # Send the initial message and keep it for updates
             message = await message.reply_text(f'Starting the {format} download from: {url}')
 
             # Start the download and update the same message
             success_download = await download_video(url, destination_folder, message, format)
-
+            print(f"Download success")
             if not success_download:
                 await message.edit_text('Error during the video download. Please try again later.')
                 return
 
             # Get the name of the downloaded file
             video_filename = max([os.path.join(destination_folder, f) for f in os.listdir(destination_folder)], key=os.path.getctime)
-
+            print(video_filename)
             # Check the file size
             file_size_mb = os.path.getsize(video_filename) / (1024 * 1024)
             if file_size_mb > TELEGRAM_MAX_SIZE_MB:
