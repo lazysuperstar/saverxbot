@@ -6,7 +6,7 @@ motor
 pyrofork==2.3.45
 TgCrypto
 dnspython
-aiohttp 
+aiohttp
 pyromod==1.5
 telethon
 instaloader
@@ -15,3 +15,5 @@ tiktok-scraper
 shazamio
 spotipy
 TikTokApi
+
+yt-dlp>=2023.3.4
