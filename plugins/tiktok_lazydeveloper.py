@@ -3,54 +3,61 @@ from pyrogram.types import Message
 from io import BytesIO
 import requests
 import time
-# from TikTokApi import TikTokApi
+from TikTokApi import TikTokApi
 import os
-# from tiktok_downloader import snaptik
-from tiktok_scraper import TikTokScraper
+from tiktok_downloader import snaptik
 
 
 from config import TEL_USERNAME
 
-
+api = TikTokApi()
 
 @Client.on_message(filters.private & filters.text & ~filters.command(['start', 'help']))
-async def download_tiktok(client, message):
-    url = message.text.strip()
-    if "tiktok.com" not in url:
-        await message.reply("❌ Please send a valid TikTok URL.")
-        return
-
-    msg_del = await message.reply("🔄 Processing your TikTok link. Please wait...")
-
-    output_dir = "./downloads"
-    os.makedirs(output_dir, exist_ok=True)  # Ensure the directory exists
-
+async def handle_tiktok_download(client: Client, message: Message):
     try:
-        scraper = TikTokScraper()
-        video_path = scraper.download_video(url, output_dir)
-        print("Downloaded video:", video_path)
+        url = message.text.strip()
+        
+        # Check if the URL is a valid TikTok link
+        if "tiktok.com" not in url:
+            await message.reply("❌ Please send a valid TikTok URL.")
+            return
+        
+        # Inform the user about the processing
+        msg_del = await message.reply("🔄 Processing your TikTok link. Please wait...")
+        
+        # Download video using tiktok_downloader (snaptik)
+        
+        bot_username = client.username if client.username else TEL_USERNAME
+        caption_lazy = f".\nᴡɪᴛʜ ❤ @{bot_username}\n."
+         # Download video using TikTokApi
+        try:
+            # api = TikTokApi()
+            video_data = api.video(url=url).bytes()  # Fetch video bytes
+            
+            # Downloading video using Pyrogram's `download` method
+            video_file = BytesIO(video_data)
+            video_file.name = f"{message.chat.id}/{time.time()}/tiktok_video.mp4"
 
-        # Rename the video
-        video_name = os.path.basename(video_path)
-        new_video_name = f"tiktok_{video_name}"
-        new_video_path = os.path.join(output_dir, new_video_name)
-        os.rename(video_path, new_video_path)
+            # Download video to file using Pyrogram
+            # file = await client.download(video_data, file_name=video_file)
 
-        # Send the video to the user
-        await client.send_video(
-            chat_id=message.chat.id,
-            video=new_video_path,
-            caption=f"🎥 Downloaded via @{client.username}"
-        )
+            # Send the downloaded video
+            await client.send_video(
+                chat_id=message.chat.id,
+                video=video_file,
+                caption=caption_lazy
+            )
+            # print(f"Video sent successfully: {video_path}")
 
-        # Cleanup
-        await msg_del.delete()
-        os.remove(new_video_path)
+            # Cleanup
+            await msg_del.delete()
+            # os.remove(video_path)
 
+        except Exception as e:
+            print(f"Error: {e}")
+        
     except Exception as e:
-        await msg_del.delete()
-        await message.reply(f"❌ An error occurred: {str(e)}")
-        print("Error:", str(e))
+        await message.reply(f"❌ An unexpected error occurred: {e}")
 
     #     try:
     #         res = snaptik(url)  # Download the TikTok video
